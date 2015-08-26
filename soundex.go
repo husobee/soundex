@@ -4,7 +4,6 @@ package soundex
 import (
 	"container/list"
 	"errors"
-	"fmt"
 	"strings"
 )
 
@@ -83,13 +82,12 @@ func Soundex(s string) (string, error) {
 				}
 			} else {
 				if dup := DuplicateRune(value, nextValue); dup {
-					fmt.Println("should be removing f", nextValue)
 					sList.Remove(e.Next())
 				}
 			}
 		}
 		if len(result) > 3 {
-			return string(result), nil
+			break
 		}
 		if len(result) > 0 {
 			// apply substitution map
@@ -105,7 +103,6 @@ func Soundex(s string) (string, error) {
 	for i := len(result); i < 4; i++ {
 		result = append(result, '0')
 	}
-
 	return strings.ToUpper(string(result)), nil
 }
 
